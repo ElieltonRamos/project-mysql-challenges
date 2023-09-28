@@ -10,17 +10,19 @@ CREATE TABLE subscription_model(
     signature VARCHAR(50) NOT NULL,
     subscription_value DOUBLE NOT NULL
 );
-CREATE TABLE musics(
-	music_id INT PRIMARY KEY AUTO_INCREMENT,
-    music_name VARCHAR(100) NOT NULL,
-    music_duration INT NOT NULL
-);
 CREATE TABLE albums(
 	album_id INT PRIMARY KEY AUTO_INCREMENT,
     album_name VARCHAR(100) NOT NULL,
     artist_id INT NOT NULL,
     release_year INT,
     FOREIGN KEY (artist_id) REFERENCES artist_registry(artist_id)
+);
+CREATE TABLE musics(
+	music_id INT PRIMARY KEY AUTO_INCREMENT,
+    music_name VARCHAR(100) NOT NULL,
+    music_duration INT NOT NULL,
+    album_id INT NOT NULL,
+    FOREIGN KEY (album_id) REFERENCES albums(album_id)
 );
 CREATE TABLE users(
 	users_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -34,15 +36,16 @@ CREATE TABLE users(
 CREATE TABLE playback_history(
 		music_id INT NOT NULL,
 		users_id INT NOT NULL,
-    reproduction_date DATE,
-    FOREIGN KEY (music_id) REFERENCES musics(music_id),
+        reproduction_date DATE UNIQUE,
+        FOREIGN KEY (music_id) REFERENCES musics(music_id),
 		FOREIGN KEY (users_id) REFERENCES users(users_id)
 );
 CREATE TABLE artist_followers(
     artist_id INT NOT NULL,
 		users_id INT NOT NULL,
     FOREIGN KEY (artist_id) REFERENCES artist_registry(artist_id),
-		FOREIGN KEY (users_id) REFERENCES users(users_id)
+		FOREIGN KEY (users_id) REFERENCES users(users_id),
+        CONSTRAINT unique_follow UNIQUE (users_id, artist_id)
 );
 INSERT INTO artist_registry (artist_id, artist_name) VALUES
 	(1, 'Beyoncé'),
@@ -56,17 +59,6 @@ INSERT INTO subscription_model (signature_id, signature, subscription_value) VAL
 	(2, 'familiar', 7.99),
 	(3, 'universitário', 5.99),
 	(4, 'pessoal', 6.99);
-INSERT INTO musics (music_id, music_name, music_duration) VALUES
-	(1, '"ALIEN SUPERSTAR"', 116),
-	(2, '"VIRGO\'S GROOVE"', 369),
-	(3, '"BREAK MY SOUL"', 279),
-	(4, '"Don\'t Stop Me Now"', 203),
-	(5, '"Under Pressure"', 152),
-	(6, '"Como Nossos Pais"', 105),
-	(7, '"O Medo de Amar é o Medo de Ser Livre"', 207),
-	(8, '"Samba em Paris"', 267),
-	(9, '"The Bard\'s Song"', 244),
-	(10, '"Feeling Good"', 100);
 INSERT INTO albums (album_id, album_name, artist_id, release_year) VALUES
 	(1, 'Renaissance', 1, 2022),
 	(2, 'Jazz', 2, 1978),
@@ -76,6 +68,17 @@ INSERT INTO albums (album_id, album_name, artist_id, release_year) VALUES
 	(6, 'QVVJFA?', 4, 2003),
 	(7, 'Somewhere Far Beyond', 5, 2007),
 	(8, 'I Put A Spell On You', 6, 2012);
+INSERT INTO musics (music_id, music_name, music_duration, album_id) VALUES
+	(1, 'ALIEN SUPERSTAR', 116, 1),
+	(2, 'VIRGO\'S GROOVE', 369, 1),
+	(3, '"BREAK MY SOUL"', 279, 1),
+	(4, '"Don\'t Stop Me Now"', 203, 2),
+	(5, '"Under Pressure"', 152, 3),
+	(6, '"Como Nossos Pais"', 105, 4),
+	(7, '"O Medo de Amar é o Medo de Ser Livre"', 207, 5),
+	(8, '"Samba em Paris"', 267, 6),
+	(9, '"The Bard\'s Song"', 244, 7),
+	(10, '"Feeling Good"', 100, 8);
 INSERT INTO users (users_id, name, last_name, age, signature_id, signature_date) VALUES
 	(1, 'Barbara', 'Liskov', 82, 1, '2019-10-20'),
 	(2, 'Robert', 'Cecil Martin', 58, 1, '2017-01-06'),
