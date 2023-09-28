@@ -30,13 +30,13 @@ CREATE TABLE users(
     last_name VARCHAR(50),
     age INT,
     signature_id INT NOT NULL,
-    signature_date DATE,
+    signature_date DATETIME,
     FOREIGN KEY (signature_id) REFERENCES subscription_model(signature_id)
 );
 CREATE TABLE playback_history(
 		music_id INT NOT NULL,
 		users_id INT NOT NULL,
-        reproduction_date DATE UNIQUE,
+        reproduction_date DATETIME UNIQUE,
         FOREIGN KEY (music_id) REFERENCES musics(music_id),
 		FOREIGN KEY (users_id) REFERENCES users(users_id)
 );
