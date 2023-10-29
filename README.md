@@ -1,5 +1,11 @@
 # Project MySql Challenges
 
+<p align="center">
+  <img src="docker.png" alt="Docker Universe" width="300px">
+  <img src="javascript.jpg" alt="Docker Universe" width="300px">
+  <img src="mysql.webp" alt="Docker Universe" width="300px">
+</p>
+
 ## Descrição
 
 Com o projeto "Mysql Challenges," tive a oportunidade de aprender a lidar com banco de dados e SQL. Aprendi a normalizar uma planilha de dados não normalizados, criando tabelas no banco de dados e, em seguida, gerei queries SQL para extrair informações úteis. Normalização de tabelas é uma parte essencial, permitindo a organização eficiente dos dados em estruturas lógicas e evitando redundâncias. Ao gerar queries SQL, realizei uma variedade de tarefas, desde calcular estatísticas financeiras até criar rankings e extrair informações detalhadas do banco de dados. Essas habilidades são fundamentais para aprimorar minha capacidade de trabalhar com bancos de dados relacionais e realizar análises detalhadas de dados de maneira eficaz.
